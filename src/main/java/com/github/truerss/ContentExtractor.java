@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 /**
  * Created by mike on 27.8.15.
  */
-class ContentExtractor {
+public class ContentExtractor {
 
   private static String[] forRemove = {"a", "ul", "code", "pre", "form", "input"};
 
