@@ -8,10 +8,10 @@ import java.util.Arrays;
 /**
  * Created by mike on 26.8.15.
  */
-public class NodeX {
+class NodeX {
   public final String path;
-  public final Type tpe;
-  public NodeX(String path, Type tpe) {
+  public final Types.Type tpe;
+  public NodeX(String path, Types.Type tpe) {
     this.path = path;
     this.tpe = tpe;
   }
@@ -20,7 +20,7 @@ public class NodeX {
     return "NodeX[" + path + "]";
   }
 
-  public static NodeX create(String path, Type tpe) {
+  public static NodeX create(String path, Types.Type tpe) {
     return new NodeX(path, tpe);
   }
 

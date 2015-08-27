@@ -7,15 +7,15 @@ import java.util.stream.Collectors;
 /**
  * Created by mike on 26.8.15.
  */
-public class TNode {
+class TNode {
 
   public final String data;
-  public final Type tpe;
+  public final Types.Type tpe;
 
   private Long _size = 0L;
   private ArrayList<TNode> children = new ArrayList<>();
 
-  public TNode(String data, Type tpe) {
+  public TNode(String data, Types.Type tpe) {
     this.data = data;
     this.tpe = tpe;
   }

@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 /**
  * Created by mike on 26.8.15.
  */
-public class ElementExt {
+class ElementExt {
 
   public final Element element;
 
@@ -25,19 +25,20 @@ public class ElementExt {
         .filter(x -> !x.nodeName().trim().isEmpty()).toArray(Element[]::new);
   }
 
-  public Type getType() {
+  public Types.Type getType() {
     String tag = element.tagName().trim().toLowerCase();
     if (tag.equals("script") ||
         tag.equals("noscript") ||
         tag.equals("iframe") ||
         tag.equals("img")) {
-      return new SkipType();
+      return new Types.SkipType();
     } else if (!element.ownText().isEmpty()) {
-      return new TextType(Long.valueOf(element.ownText().trim().length()));
-    } else if ((tag.equals("div") || tag.equals("span")) && (element.ownText().isEmpty())) {
-      return new EmptyType();
+      return new Types.TextType(Long.valueOf(element.ownText().trim().length()));
+    } else if ((tag.equals("div") || tag.equals("span")) &&
+        (element.ownText().isEmpty())) {
+      return new Types.EmptyType();
     } else {
-      return new AnotherType();
+      return new Types.AnotherType();
     }
   }
 

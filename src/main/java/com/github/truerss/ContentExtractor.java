@@ -7,11 +7,10 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 /**
  * Created by mike on 27.8.15.
  */
-public class ContentExtractor {
+class ContentExtractor {
 
   private static String[] forRemove = {"a", "ul", "code", "pre", "form", "input"};
 
@@ -22,28 +21,13 @@ public class ContentExtractor {
 
     ElementExt body = new ElementExt(element);
 
+    TNode root = new TNode("root", new Types.SkipType());
 
-    TNode root = new TNode("root", new SkipType());
-
-    ArrayList<NodeX> extracted = NodeX.extract(body)
-        .stream().filter(x -> {
-          if ((x.tpe instanceof SkipType) ||
-              (x.tpe instanceof EmptyType)) {
-            return false;
-          } else {
-            return true;
-          }
-        }).collect(Collectors.toCollection(ArrayList::new));
-
-
-
-    ArrayList<ArrayList<TNode>> znodes = extracted.stream().map(z ->
-      Arrays.stream(z.path.split(" > "))
-          .map(x -> new TNode(x, z.tpe))
-          .collect(Collectors.toCollection(ArrayList::new))
-    ).collect(Collectors.toCollection(ArrayList::new));
-
-    znodes.forEach(x -> root.addChild0(x));
+    NodeX.extract(body).stream().map(z ->
+            Arrays.stream(z.path.split(" > "))
+                .map(x -> new TNode(x, z.tpe))
+                .collect(Collectors.toCollection(ArrayList::new))
+    ).forEach(x -> root.addChild0(x));
 
     ArrayList<TNode> z = root.all();
 
@@ -52,16 +36,9 @@ public class ContentExtractor {
         .filter(x -> x.childrenCount() >= 1)
         .filter(x -> x.size() > 0)
         .filter(x -> x.size().equals(x.childrenSize()))
-        .filter(x -> x.all().stream().allMatch(c -> {
-          if (c.tpe instanceof TextType) {
-            return true;
-          } else {
-            return false;
-          }
-        }))
         .toArray(TNode[]::new);
 
-    Long max = 0L;
+    long max = 0L;
     int index = 0;
     for(int i = 0; i < e.length; i++) {
       if (e[i].size() > max) {
@@ -79,11 +56,23 @@ public class ContentExtractor {
         .max(Comparator.comparingInt(x -> x.text().length()));
 
     String result;
-    if (e1.get().text().length() > e2.get().text().length()) {
-      result = e1.get().cssSelector();
+
+    if (e1.isPresent() && e2.isPresent()) {
+      if (e1.isPresent() && !e2.isPresent()) {
+        result = e1.get().cssSelector();
+      } else if (e2.isPresent() && !e1.isPresent()) {
+        result = e2.get().cssSelector();
+      } else {
+        if (e1.get().text().length() > e2.get().text().length()) {
+          result = e1.get().cssSelector();
+        } else {
+          result = e2.get().cssSelector();
+        }
+      }
     } else {
-      result = e2.get().cssSelector();
+      throw new RuntimeException("Fail extract content from " + element.cssSelector());
     }
+
     // and need remove html if it first element
     if (result.startsWith("html")) {
       StringBuilder bf = new StringBuilder(result.length() - 4);
