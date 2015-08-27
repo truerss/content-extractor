@@ -2,7 +2,6 @@ package com.github.truerss;
 
 import org.jsoup.nodes.Element;
 
-import java.nio.channels.Selector;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
