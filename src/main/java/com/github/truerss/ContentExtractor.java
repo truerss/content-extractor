@@ -29,29 +29,25 @@ class ContentExtractor {
                 .collect(Collectors.toCollection(ArrayList::new))
     ).forEach(x -> root.addChild0(x));
 
-    ArrayList<TNode> z = root.all();
-
-    TNode[] e = z.stream()
+    TNode[] tnodeStream = root.all().stream()
         .filter(x -> x.all().stream().allMatch(c -> c.size() > 0))
         .filter(x -> x.childrenCount() >= 1)
         .filter(x -> x.size() > 0)
         .filter(x -> x.size().equals(x.childrenSize()))
         .toArray(TNode[]::new);
 
-    long max = 0L;
-    int index = 0;
-    for(int i = 0; i < e.length; i++) {
-      if (e[i].size() > max) {
-        index = i;
-        max = e[i].size();
-      }
+    if (tnodeStream.length == 0) {
+      throw new RuntimeException("Empty array of elements from " + element.cssSelector() + " selector");
     }
 
-    String need1 = e[index].data;
+    Optional<TNode> optTNode = Arrays.stream(tnodeStream)
+        .parallel().max(Comparator.comparing(x -> x.size()));
+
+    String need1 = optTNode.get().data;
     Optional<Element> e1 = element.select(need1).stream()
         .max(Comparator.comparingInt(x -> x.text().length()));
 
-    String need2 = e[0].data;
+    String need2 = tnodeStream[0].data;
     Optional<Element> e2 = element.select(need2).stream()
         .max(Comparator.comparingInt(x -> x.text().length()));
 
