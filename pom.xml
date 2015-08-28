@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.truerss</groupId>
     <artifactId>content-extractor</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2-SNAPSHOT</version>
 
     <licenses>
         <license>
@@ -16,7 +16,7 @@
         <url>https://github.com/truerss/content-extractor</url>
         <connection>scm:git:git://github.com/truerss/content-extractor.git</connection>
         <developerConnection>scm:git:git@github.com:truerss/content-extractor.git</developerConnection>
-      <tag>0.0.1</tag>
+      <tag>content-extractor-0.0.1</tag>
   </scm>
 
     <developers>
@@ -35,7 +35,7 @@
     <distributionManagement>
         <repository>
             <id>bintray</id>
-            <url>https://api.bintray.com/maven/truerss/maven/content-extractor</url>
+            <url>https://api.bintray.com/truerss/maven/content-extractor</url>
         </repository>
     </distributionManagement>
 
