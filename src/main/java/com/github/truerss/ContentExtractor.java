@@ -1,6 +1,7 @@
 package com.github.truerss;
 
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,9 +20,16 @@ public class ContentExtractor {
         .forEach(tag -> element.select(tag)
             .forEach(x -> x.remove()));
 
+    String result = null;
+
+    Elements article = element.select("article");
+    if (article.size() == 1) {
+      result = article.first().cssSelector();
+    }
+
     ElementExt body = new ElementExt(element);
 
-    TNode root = new TNode("root", new Types.SkipType());
+    TNode root = new TNode("root", Types.anotherType);
 
     NodeX.extract(body).stream().map(z ->
             Arrays.stream(z.path.split(" > "))
@@ -51,24 +59,23 @@ public class ContentExtractor {
     Optional<Element> e2 = element.select(need2).stream()
         .max(Comparator.comparingInt(x -> x.text().length()));
 
-    String result;
-
-    if (e1.isPresent() && e2.isPresent()) {
-      if (e1.isPresent() && !e2.isPresent()) {
-        result = e1.get().cssSelector();
-      } else if (e2.isPresent() && !e1.isPresent()) {
-        result = e2.get().cssSelector();
-      } else {
-        if (e1.get().text().length() > e2.get().text().length()) {
+    if (result == null) {
+      if (e1.isPresent() && e2.isPresent()) {
+        if (e1.isPresent() && !e2.isPresent()) {
           result = e1.get().cssSelector();
-        } else {
+        } else if (e2.isPresent() && !e1.isPresent()) {
           result = e2.get().cssSelector();
+        } else {
+          if (e1.get().text().length() > e2.get().text().length()) {
+            result = e1.get().cssSelector();
+          } else {
+            result = e2.get().cssSelector();
+          }
         }
+      } else {
+        throw new RuntimeException("Fail extract content from " + element.cssSelector());
       }
-    } else {
-      throw new RuntimeException("Fail extract content from " + element.cssSelector());
     }
-
     // and need remove html if it first element
     if (result.startsWith("html")) {
       StringBuilder bf = new StringBuilder(result.length() - 4);
@@ -84,8 +91,6 @@ public class ContentExtractor {
     }
 
     return new ExtractResult(result);
-
-
   }
 
 }

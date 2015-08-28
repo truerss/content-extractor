@@ -20,4 +20,7 @@ class Types {
   static class SkipType extends Type {}
   static class EmptyType extends Type {}
 
+  public static final SkipType skipType = new SkipType();
+  public static final EmptyType emptyType = new EmptyType();
+  public static final AnotherType anotherType = new AnotherType();
 }

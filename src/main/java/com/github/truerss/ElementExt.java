@@ -31,14 +31,14 @@ class ElementExt {
         tag.equals("noscript") ||
         tag.equals("iframe") ||
         tag.equals("img")) {
-      return new Types.SkipType();
+      return Types.skipType;
     } else if (!element.ownText().isEmpty()) {
       return new Types.TextType(Long.valueOf(element.ownText().trim().length()));
     } else if ((tag.equals("div") || tag.equals("span")) &&
         (element.ownText().isEmpty())) {
-      return new Types.EmptyType();
+      return Types.emptyType;
     } else {
-      return new Types.AnotherType();
+      return Types.anotherType;
     }
   }
 
