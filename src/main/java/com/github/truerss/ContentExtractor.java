@@ -3,10 +3,8 @@ package com.github.truerss;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.util.*;
-/**
- * Created by mike on 27.8.15.
- */
+import java.util.HashMap;
+
 public class ContentExtractor {
 
   public static ExtractResult extract(Element element) {
@@ -15,8 +13,9 @@ public class ContentExtractor {
       return new ExtractResult(articles.first().cssSelector());
     }
 
-    HashMap<String, Long> map = new HashMap<>();
     Elements elements = element.select("p:matchesOwn(^.+$), div:matchesOwn(^.+$)");
+    HashMap<String, Long> map = new HashMap<>(elements.size());
+
     elements.stream()
         .forEach(x -> {
           String key = x.parent().cssSelector();
@@ -31,6 +30,8 @@ public class ContentExtractor {
     String result = map.entrySet()
         .stream().max((entry1, entry2) ->
             entry1.getValue() > entry2.getValue() ? 1 : -1).get().getKey();
+
+    map.clear();
 
     return new ExtractResult(result);
 
