@@ -13,6 +13,7 @@ public class ContentExtractor {
       return new ExtractResult(articles.first().cssSelector());
     }
 
+
     Elements elements = element.select("p:matchesOwn(^.+$), div:matchesOwn(^.+$)");
     HashMap<String, Long> map = new HashMap<>(elements.size());
 
@@ -27,9 +28,16 @@ public class ContentExtractor {
           }
         });
 
-    String result = map.entrySet()
-        .stream().max((entry1, entry2) ->
-            entry1.getValue() > entry2.getValue() ? 1 : -1).get().getKey();
+
+
+    String result = null;
+    if (map.isEmpty()) {
+      result = element.cssSelector();
+    } else {
+      result = map.entrySet()
+          .stream().max((entry1, entry2) ->
+              entry1.getValue() > entry2.getValue() ? 1 : -1).get().getKey();
+    }
 
     map.clear();
 
