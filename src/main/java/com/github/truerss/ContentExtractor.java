@@ -13,11 +13,10 @@ public class ContentExtractor {
       return new ExtractResult(articles.first().cssSelector());
     }
 
-
     Elements elements = element.select("p:matchesOwn(^.+$), div:matchesOwn(^.+$)");
     HashMap<String, Long> map = new HashMap<>(elements.size());
 
-    elements.stream()
+    elements
         .forEach(x -> {
           String key = x.parent().cssSelector();
           Long v = map.get(key);
@@ -27,8 +26,6 @@ public class ContentExtractor {
             map.put(key, x.text().length() + v);
           }
         });
-
-
 
     String result = null;
     if (map.isEmpty()) {
