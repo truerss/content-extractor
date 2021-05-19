@@ -1,5 +1,5 @@
 
-ThisBuild / version := "1.0.0"
+ThisBuild / version := "1.0.2"
 ThisBuild / organization := "io.github.truerss"
 sonatypeRepository := "https://s01.oss.sonatype.org/service/local"
 sonatypeCredentialHost := "s01.oss.sonatype.org"
@@ -17,5 +17,6 @@ ThisBuild / developers := List(Developer("mike", "mike", "mike.fch1@gmail.com", 
 ThisBuild / licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 
 libraryDependencies ++= Seq(
-  "org.jsoup" % "jsoup" % "1.13.1"
+  "org.jsoup" % "jsoup" % "1.13.1",
+  "org.junit.jupiter" % "junit-jupiter" % "5.7.1" % Test
 )

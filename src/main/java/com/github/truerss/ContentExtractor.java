@@ -1,42 +1,37 @@
 package com.github.truerss;
 
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ContentExtractor {
 
+  private final static String articleSelector = "article";
+  private final static String textQuery = "p:matchesOwn(^.+$), div:matchesOwn(^.+$)";
+
   public static ExtractResult extract(Element element) {
-    Elements articles = element.select("article");
+    var articles = element.select(articleSelector);
+
     if (articles.size() == 1) {
       return new ExtractResult(articles.first().cssSelector());
     }
 
-    Elements elements = element.select("p:matchesOwn(^.+$), div:matchesOwn(^.+$)");
-    HashMap<String, Long> map = new HashMap<>(elements.size());
+    var elements = element.select(textQuery);
+    var map = new HashMap<String, Long>(elements.size());
 
-    elements
-        .forEach(x -> {
-          String key = x.parent().cssSelector();
-          Long v = map.get(key);
-          if (v == null) {
-            map.put(key, (long)x.text().length());
-          } else {
-            map.put(key, x.text().length() + v);
-          }
-        });
-
-    String result = null;
-    if (map.isEmpty()) {
-      result = element.cssSelector();
-    } else {
-      result = map.entrySet()
-          .stream().max((entry1, entry2) ->
-              entry1.getValue() > entry2.getValue() ? 1 : -1).get().getKey();
+    for (var elem: elements) {
+      var key = elem.parent().cssSelector();
+      var value = map.getOrDefault(key, 0L);
+      var len = (long) elem.text().length();
+      map.put(key, len + value);
     }
 
-    map.clear();
+    var result = map.entrySet()
+      .stream()
+      .max(Comparator.comparingLong(Map.Entry::getValue))
+      .map(Map.Entry::getKey).orElse(element.cssSelector());
 
     return new ExtractResult(result);
 

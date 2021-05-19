@@ -5,7 +5,7 @@ Java library.
 Return a selector for the main content on the HTML page.
 
 
-### Note for use put `jsoup` in classpath.
+### `jsoup` should be present in classpath.
 
 ### Example:
 
