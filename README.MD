@@ -2,7 +2,7 @@
 
 Java library.
 
-Return a selector for the main content on the HTML page.
+Returns the selector with the largest amount of content.
 
 
 ### `jsoup` should be present in classpath.
