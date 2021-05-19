@@ -1,6 +1,7 @@
 
 ThisBuild / version := "1.0.2"
 ThisBuild / organization := "io.github.truerss"
+ThisBuild / licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 sonatypeRepository := "https://s01.oss.sonatype.org/service/local"
 sonatypeCredentialHost := "s01.oss.sonatype.org"
 ThisBuild / publishTo := {
