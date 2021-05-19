@@ -17,7 +17,7 @@ import org.jsoup.nodes.Document;
 
 String url = "http://example.com/post.html";
 Document doc = Jsoup.connect(url).get();
-Element body = doc.select("body").get(0);
+Element body = doc.body();
 ExtractResult result = ContentExtractor.extract(body);
 System.out.println("==========> " + result.selector);
 
