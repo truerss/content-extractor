@@ -17,6 +17,8 @@ ThisBuild / scmInfo := Some(ScmInfo(url("https://github.com/truerss/content-extr
 ThisBuild / developers := List(Developer("mike", "mike", "mike.fch1@gmail.com", url("https://github.com/fntz")))
 ThisBuild / licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 
+ThisBuild / publishMavenStyle := true
+
 libraryDependencies ++= Seq(
   "org.jsoup" % "jsoup" % "1.13.1",
   "org.junit.jupiter" % "junit-jupiter" % "5.7.1" % Test
