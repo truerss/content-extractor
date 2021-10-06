@@ -5,7 +5,12 @@
 
 *.iml
 
-.bsp
+.bsp/
+.bloop/
+.metals/
+.vscode/
+
+project/
 
 ## Directory-based project format:
 .idea/
