@@ -5,6 +5,29 @@ Java library.
 Returns the selector with the largest amount of content.
 
 
+### add  
+
+
+```sbt 
+// sbt: 
+
+"io.github.truerss" % "content-extractor" % "1.0.4"
+
+// maven: 
+
+<dependency>
+  <groupId>io.github.truerss</groupId>
+  <artifactId>content-extractor</artifactId>
+  <version>1.0.4</version>
+</dependency>
+
+// graddle
+
+implementation 'io.github.truerss:content-extractor:1.0.4'
+
+```
+
+
 ### `jsoup` should be present in classpath.
 
 ### Example:
