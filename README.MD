@@ -18,12 +18,12 @@ Returns the selector with the largest amount of content.
 <dependency>
   <groupId>io.github.truerss</groupId>
   <artifactId>content-extractor</artifactId>
-  <version>1.0.4</version>
+  <version>1.0.5</version>
 </dependency>
 
 // graddle
 
-implementation 'io.github.truerss:content-extractor:1.0.4'
+implementation 'io.github.truerss:content-extractor:1.0.5'
 
 ```
 

@@ -38,7 +38,4 @@ public class ContentExtractorTest {
     assertTrue(result.selector().endsWith("body"));
   }
 
-
-
-
 }
