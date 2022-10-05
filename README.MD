@@ -11,7 +11,7 @@ Returns the selector with the largest amount of content.
 ```sbt 
 // sbt: 
 
-"io.github.truerss" % "content-extractor" % "1.0.4"
+"io.github.truerss" % "content-extractor" % "1.0.5"
 
 // maven: 
 
