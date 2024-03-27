@@ -4,12 +4,13 @@ import org.jsoup.Jsoup;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ContentExtractorTest {
 
-  private final String articleUrl = "https://dzone.com/articles/fluentd-vs-logstash-the-ultimate-log-agent-battle";
+  private final String articleUrl = "https://web.archive.org/web/20210928134309/https://dzone.com/articles/fluentd-vs-logstash-the-ultimate-log-agent-battle";
 
   private final String commonUrl = "https://blogs.windows.com/windowsexperience/2021/05/19/the-future-of-internet-explorer-on-windows-10-is-in-microsoft-edge/";
 
@@ -25,9 +26,11 @@ public class ContentExtractorTest {
 
   @Test
   public void extractContentTestsWhenArticleIsDivOrAnotherElement() throws IOException {
-    var doc = Jsoup.connect(commonUrl).get();
+    var classLoader = getClass().getClassLoader();
+    var file = new File(classLoader.getResource("blogs.windows.com.html").getFile());
+    var doc = Jsoup.parse(file, "UTF-8");
     var result = ContentExtractor.extract(doc.body());
-    var expected = "div.l-container.l-container--small.l-container--article > div.item-single__content.t-content > div";
+    var expected = "div.l-wrapper > main > article";
     assertTrue(result.selector().contains(expected));
   }
 

@@ -1,5 +1,5 @@
 
-ThisBuild / version := "1.0.5"
+ThisBuild / version := "1.1.0"
 ThisBuild / organization := "io.github.truerss"
 ThisBuild / licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 sonatypeRepository := "https://s01.oss.sonatype.org/service/local"
@@ -21,6 +21,7 @@ publishMavenStyle := true
 crossPaths := false
 
 libraryDependencies ++= Seq(
-  "org.jsoup" % "jsoup" % "1.15.3",
-  "org.junit.jupiter" % "junit-jupiter" % "5.7.1" % Test
+  "org.jsoup" % "jsoup" % "1.17.2",
+  "org.junit.jupiter" % "junit-jupiter" % "5.10.2" % Test,
+  "net.aichler" % "jupiter-interface" % "0.11.1" % Test
 )

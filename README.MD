@@ -11,19 +11,19 @@ Returns the selector with the largest amount of content.
 ```sbt 
 // sbt: 
 
-"io.github.truerss" % "content-extractor" % "1.0.5"
+"io.github.truerss" % "content-extractor" % "1.1.0"
 
 // maven: 
 
 <dependency>
   <groupId>io.github.truerss</groupId>
   <artifactId>content-extractor</artifactId>
-  <version>1.0.5</version>
+  <version>1.1.0</version>
 </dependency>
 
-// graddle
+// gradle
 
-implementation 'io.github.truerss:content-extractor:1.0.5'
+implementation 'io.github.truerss:content-extractor:1.1.0'
 
 ```
 
